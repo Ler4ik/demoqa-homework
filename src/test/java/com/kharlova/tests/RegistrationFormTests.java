@@ -19,10 +19,20 @@ public class RegistrationFormTests {
 
     @Test
     void fillFormTest(){
-        String firstName = "Kharlova";
-        String lastName = "Valeriya";
+        String firstName = "Valeriya";
+        String lastName = "Kharlova";
         String userEmail = "valvalsan@gmail.com";
+        String gender = "Female";
         String userNumber = "9538023112";
+        String year = "1988";
+        String month = "December";
+        String day = "31";
+        String subjects = "Maths";
+        String hobbies = "Reading";
+        String address = "Mirgorodskay street";
+        String state = "NCR";
+        String city = "Noida";
+
 
         open("/automation-practice-form");
 
@@ -33,19 +43,30 @@ public class RegistrationFormTests {
         $("#gender-radio-2").parent().click();
         $("#userNumber").setValue(userNumber);
         $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption("December");
-        $(".react-datepicker__year-select").selectOption("1988");
+        $(".react-datepicker__month-select").selectOption(month);
+        $(".react-datepicker__year-select").selectOption(year);
         $(".react-datepicker__day--031:not(.react-datepicker__day--outside-month)").click();
-        $("#subjectsInput").setValue("Math").pressEnter();
+        $("#subjectsInput").setValue(subjects).pressEnter();
         $("#hobbies-checkbox-2").parent().click();
         $("#uploadPicture").uploadFromClasspath("img/1.png");
-        $("#currentAddress").setValue("123");
-        $(".state").click();
-        $(".stateCity-wrapper").$(byText("NCR")).click();
-
-
+        $("#currentAddress").setValue(address);
+        $("#state").click();
+        $("#state").$(byText(state)).click();
+        $("#city").click();
+        $("#city").$(byText(city)).click();
         $("#submit").click();
 
+        $(".modal-title").shouldHave(text("Thanks for submitting the form"));
+        $(".table-responsive").$(byText("Student Name")).shouldHave(text(firstName + " " + lastName ));
+        $(".table-responsive").$(byText("Student Email")).shouldHave(text(userEmail));
+        $(".table-responsive").$(byText("Gender")).shouldHave(text(gender));
+        $(".table-responsive").$(byText("Mobile")).shouldHave(text(userNumber));
+        $(".table-responsive").$(byText("Date of Birth")).shouldHave(text(day + " " + month + "," + year));
+        $(".table-responsive").$(byText("Subjects")).shouldHave(text(subjects));
+        $(".table-responsive").$(byText("Hobbies")).shouldHave(text(hobbies));
+        $(".table-responsive").$(byText("Picture")).shouldHave(text("1.png"));
+        $(".table-responsive").$(byText("Address")).shouldHave(text(address));
+        $(".table-responsive").$(byText("State and City")).shouldHave(text(state + " " + city));
 
     }
 
