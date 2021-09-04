@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationFormTests {
 
@@ -20,10 +19,10 @@ public class RegistrationFormTests {
     @Test
     void fillFormTest(){
         String firstName = "Valeriya";
-        String lastName = "Kharlova";
+        String lastName = "Petrova";
         String userEmail = "valvalsan@gmail.com";
         String gender = "Female";
-        String userNumber = "9538023112";
+        String userNumber = "9538026712";
         String year = "1988";
         String month = "December";
         String day = "31";
@@ -49,6 +48,7 @@ public class RegistrationFormTests {
         $("#subjectsInput").setValue(subjects).pressEnter();
         $("#hobbies-checkbox-2").parent().click();
         $("#uploadPicture").uploadFromClasspath("img/1.png");
+        $("#currentAddress").scrollIntoView(true);
         $("#currentAddress").setValue(address);
         $("#state").click();
         $("#state").$(byText(state)).click();
@@ -57,19 +57,17 @@ public class RegistrationFormTests {
         $("#submit").click();
 
         $(".modal-title").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").$(byText("Student Name")).shouldHave(text(firstName + " " + lastName ));
-        $(".table-responsive").$(byText("Student Email")).shouldHave(text(userEmail));
-        $(".table-responsive").$(byText("Gender")).shouldHave(text(gender));
-        $(".table-responsive").$(byText("Mobile")).shouldHave(text(userNumber));
-        $(".table-responsive").$(byText("Date of Birth")).shouldHave(text(day + " " + month + "," + year));
-        $(".table-responsive").$(byText("Subjects")).shouldHave(text(subjects));
-        $(".table-responsive").$(byText("Hobbies")).shouldHave(text(hobbies));
-        $(".table-responsive").$(byText("Picture")).shouldHave(text("1.png"));
-        $(".table-responsive").$(byText("Address")).shouldHave(text(address));
-        $(".table-responsive").$(byText("State and City")).shouldHave(text(state + " " + city));
+        $x("//td[text()='Student Name']").parent().shouldHave(text(firstName + " " + lastName ));
+        $x("//td[text()='Student Email']").parent().shouldHave(text(userEmail));
+        $x("//td[text()='Gender']").parent().shouldHave(text(gender));
+        $x("//td[text()='Mobile']").parent().shouldHave(text(userNumber));
+        $x("//td[text()='Date of Birth']").parent().shouldHave(text(day + " " + month + "," + year));
+        $x("//td[text()='Subjects']").parent().shouldHave(text(subjects));
+        $x("//td[text()='Hobbies']").parent().shouldHave(text(hobbies));
+        $x("//td[text()='Picture']").parent().shouldHave(text("1.png"));
+        $x("//td[text()='Address']").parent().shouldHave(text(address));
+        $x("//td[text()='State and City']").parent().shouldHave(text(state + " " + city));
 
     }
-
-
 
 }
